@@ -1,4 +1,5 @@
 #!/usr/bin/ruby
+
 ARGV << '--help' if ARGV.empty?
 
 if ARGV[0] == '--help'
