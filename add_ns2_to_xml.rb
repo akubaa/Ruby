@@ -14,7 +14,7 @@ unless File.file?(choice)
   puts 'Please, try again with correct filename'
   exit
 end
-find = ''
+
 file = File.open(choice, 'r+')
 file2 = File.open('result.xml', 'w+')
 file.each_line do |line|
