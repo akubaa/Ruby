@@ -22,7 +22,7 @@ file.each_line do |line|
   if line =~ /(<)[^?]/
     find = line
     check1 = find.gsub(/(<)/, '<ns2:')
-    check2 = check1.gsub(/(<ns2:\/)/, '</ns2:')
+    check2 = check1.gsub(%r{(<ns2:\/)}, '</ns2:')
     file2.puts check2
   else
     file2.puts line
