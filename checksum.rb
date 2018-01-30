@@ -17,7 +17,6 @@ def checksum(md5)
       buf = ''
       dig.update(buf) while io.read(4096, buf)
       @result.puts "File: \n"
-
       @result.puts "#{file}\n"
       @result.puts "MD5: #{dig}\n\n"
     end
@@ -37,7 +36,7 @@ def veri(find)
       save << line if c
       c = false
     end
-    if save.all? {|x| x == save[0]}
+    if save.all? { |x| x == save[0] }
       puts 'OK'
     else
       save = save.uniq
@@ -78,7 +77,7 @@ if options[:file]
   if !file1.nil?
     @result = File.open('result.txt', 'a+')
     @result.puts "#{time.year}-#{time.month}-#{time.day} #{time.hour}:#{time.min} #{file1} result:"
-    thr = Thread.new {checksum(file1)}
+    thr = Thread.new { checksum(file1) }
     thr.join
     puts 'Check result.txt for checksums'
   else

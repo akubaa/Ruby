@@ -1,4 +1,3 @@
-
 def chunker(f_in, out_pref, chunksize = 1_073_741_824)
   File.open(f_in, 'r') do |fh_in|
     until fh_in.eof?
