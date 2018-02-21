@@ -1,6 +1,18 @@
+require 'ffi/pcap'
 
-require 'faker'
+pcap = FFI::PCap::Live.new(:dev => '\Device\NPF_{76B63309-0E94-4BBB-9856-9B8C072A321E}')   # for this time, listening is active, as show with stats
 
-puts Faker::Name.unique.name
+pcap.stats
+pcap.stats.ps_recv
 
-puts Faker::Internet.email
+pcap.datalink.describe
+
+pakt = []
+
+pcap.loop(:count => -1) do |this,pkt|   # :count => -1 for infinite loop, break with .breakloop method
+  pakt << pkt
+  puts "#{pkt.time} :: #{pkt.len}"
+  pkt.body.each_byte {|x| print "%0.2x " % x }
+  pcap.loop(count: 2){|t,p| Hexdump.dump(p.body);puts "\n";};
+  putc "\n"
+end
