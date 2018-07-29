@@ -36,7 +36,7 @@ def veri(find)
       save << line if c
       c = false
     end
-    if save.all? { |x| x == save[0] }
+    if save.all { |x| x == save[0] }
       puts 'OK'
     else
       save = save.uniq
