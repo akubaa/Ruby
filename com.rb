@@ -6,7 +6,6 @@ verbose = ARGV[1]
 
 def setup(arg)
   # 460800
-
   @ser = SerialPort.new arg, 115_200
 rescue StandardError
   puts "Not possible to open #{i}"
@@ -28,6 +27,8 @@ def log
       puts buff if ARGV[1] == '-v'
     end
   end
+rescue StandardError
+  puts 'Timed out'
 end
 
 def check(var)
