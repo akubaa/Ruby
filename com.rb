@@ -1,14 +1,15 @@
 #!/usr/bin/ruby
 require 'serialport'
 
-i = ARGV[0]
-verbose = ARGV[1]
+arg0 = ARGV[0]
+arg1 = ARGV[1]
+arg2 = ARGV[2]
 
-def setup(arg)
-  # 460800
-  @ser = SerialPort.new arg, 115_200
+def setup(arg, arg2)
+  @ser = SerialPort.new arg, arg2.to_i
 rescue StandardError
-  puts "Not possible to open #{i}"
+  puts "Not possible to open #{arg}"
+  exit
 end
 
 def logfile
@@ -17,32 +18,33 @@ def logfile
   @file = File.open(t, 'a+')
 rescue StandardError
   puts 'Not possible to create file'
-  puts 'Please retry to run com.rb'
+  exit
 end
 
 def log
+  puts 'Logging started'
   loop do
     while (buff = @ser.gets.chomp)
       @file.puts buff
-      puts buff if ARGV[1] == '-v'
+      puts buff if ARGV[2] == '-v'
     end
   end
 rescue StandardError
   puts 'Timed out'
+  exit
 end
 
-def check(var)
-  raise 'Invalid flag' if !var.nil? && (var != '-v')
-  if var.nil?
-    puts 'Start logging'
-    puts 'Add -v flag for output of serial data in terminal'
+def check(var, var2)
+  if !var.nil? && (var != '-v')
+    puts 'incorrect flag'
+    exit
+  elsif !%w[9600 38400 115200 460800].include? var2
+    puts 'incorrect baud rate'
+    exit
   end
-rescue StandardError => e
-  puts e.message
-  puts e.backtrace.inspect
 end
 
-check verbose
-setup i
+check arg2, arg1
+setup arg0, arg1
 logfile
 log
