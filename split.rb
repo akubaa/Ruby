@@ -1,3 +1,8 @@
+#!/usr/bin/ruby
+
+filename = ARGV[0]
+surfix = ARGV[1]
+
 def chunker(f_in, out_pref, chunksize = 1_073_741_824)
   File.open(f_in, 'r') do |fh_in|
     until fh_in.eof?
@@ -8,6 +13,4 @@ def chunker(f_in, out_pref, chunksize = 1_073_741_824)
   end
 end
 
-filename = ARGV[0]
-surfix = ARGV[1]
 chunker filename, surfix, 10_000
