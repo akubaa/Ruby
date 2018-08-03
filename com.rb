@@ -5,10 +5,10 @@ arg0 = ARGV[0]
 arg1 = ARGV[1]
 arg2 = ARGV[2]
 
-def setup(arg, arg2)
-  @ser = SerialPort.new arg, arg2.to_i
+def setup(arg0, arg1)
+  @ser = SerialPort.new arg0, arg1.to_i
 rescue StandardError
-  puts "Not possible to open #{arg}"
+  puts "Not possible to open #{arg0}"
   exit
 end
 
@@ -34,17 +34,17 @@ rescue StandardError
   exit
 end
 
-def check(var, var2)
-  if !var.nil? && (var != '-v')
+def check(arg1, arg2)
+  if !arg2.nil? && (arg2 != '-v')
     puts 'incorrect flag'
     exit
-  elsif !%w[9600 38400 115200 460800].include? var2
+  elsif !%w[9600 38400 115200 460800].include? arg1
     puts 'incorrect baud rate'
     exit
   end
 end
 
-check arg2, arg1
+check arg1, arg2
 setup arg0, arg1
 logfile
 log
