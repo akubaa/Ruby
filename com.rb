@@ -5,7 +5,7 @@ arg0 = ARGV[0]
 arg1 = ARGV[1]
 arg2 = ARGV[2]
 
-def setup(arg0, arg1)
+def prestart(arg0, arg1)
   @ser = SerialPort.new arg0, arg1.to_i
 rescue StandardError
   puts "Not possible to open #{arg0}"
@@ -45,6 +45,6 @@ def check(arg1, arg2)
 end
 
 check arg1, arg2
-setup arg0, arg1
+prestart arg0, arg1
 logfile
 log
