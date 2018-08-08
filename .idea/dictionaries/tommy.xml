@@ -4,6 +4,9 @@
       <w>chunker</w>
       <w>chunksize</w>
       <w>pcap</w>
+      <w>precheck</w>
+      <w>prestart</w>
+      <w>serialport</w>
       <w>surfix</w>
       <w>veri</w>
     </words>
