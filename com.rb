@@ -12,10 +12,12 @@ rescue StandardError
   exit
 end
 
+def timestamp
+  Time.now.strftime '%Y-%m-%d %H_%M_%S'
+end
+
 def logfile
-  time = Time.now
-  t = "#{time.year}_#{time.month}_#{time.day}_#{time.hour}_#{time.min}.log"
-  @file = File.open(t, 'a+')
+  @file = File.open("#{timestamp}.log", 'a+')
 rescue StandardError
   puts 'Not possible to create file'
   exit
@@ -25,8 +27,8 @@ def log
   puts 'Logging started'
   loop do
     while (buff = @ser.gets.chomp)
-      @file.puts buff
-      puts buff if ARGV[2] == '-v'
+      @file.puts "#{timestamp} #{buff}"
+      puts "#{timestamp} #{buff}" if ARGV[2] == '-v'
     end
   end
 rescue StandardError
